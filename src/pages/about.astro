@@ -1,5 +1,22 @@
 ---
+const pageTitle = "About me";
 
+const identity = {
+  firstName: "foo",
+};
+
+const skills = [
+  "HTML",
+  "CSS",
+  "JavaScript",
+  "Typescript",
+  "Next",
+  "React",
+  "Astro",
+];
+
+const myNumber = 10;
+const myBoolean = true;
 ---
 
 <html lang="en">
@@ -12,7 +29,7 @@
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{pageTitle}</title>
   </head>
   <body>
     <nav>
@@ -28,6 +45,19 @@
         </li>
       </ul>
     </nav>
-    <h1>about</h1>
+    <h1>About me</h1>
+
+    <p>Hello, I am {identity.firstName}</p>
+    <section>
+      <h2>Skills</h2>
+      <ul>
+        {skills.map((skill) => <li>{skill}</li>)}
+      </ul>
+    </section>
+    {myBoolean && <p>This was conditional rendered</p>}
+    <p>
+      The number: {myNumber + 1} was evaluated as an
+      expression
+    </p>
   </body>
 </html>
