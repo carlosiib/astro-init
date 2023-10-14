@@ -1,5 +1,7 @@
 ---
-
+const pageTitle = "Astro Learning";
+const animals = ["Capybara", "Cow", "Ant"];
+const primaryColor = "blue";
 ---
 
 <html lang="en">
@@ -12,7 +14,15 @@
     />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Astro</title>
+    <title>{pageTitle}</title>
+    <style define:vars={{ primaryColor }}>
+      h1 {
+        color: var(--primaryColor);
+      }
+      .heading__h2 {
+        color: purple;
+      }
+    </style>
   </head>
   <body>
     <nav>
@@ -37,5 +47,16 @@
       </ul>
     </nav>
     <h1>My astro site</h1>
+    <span>Color setted from frontmatter</span>
+    <section>
+      <h2 class="heading__h2">Random animals</h2>
+      <ul>
+        {
+          animals.map((animal) => (
+            <li data-animal={animal}>{animal}</li>
+          ))
+        }
+      </ul>
+    </section>
   </body>
 </html>
