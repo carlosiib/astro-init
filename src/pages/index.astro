@@ -1,44 +1,22 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
-const pageTitle = "Astro Learning";
 const animals = ["Capybara", "Cow", "Ant"];
-const primaryColor = "blue";
+import "../styles/global.css";
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/favicon.svg"
-    />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{pageTitle}</title>
-    <style define:vars={{ primaryColor }}>
-      h1 {
-        color: var(--primaryColor);
+<BaseLayout pageTitle="Home">
+  <Navigation />
+  <h1 class="font-bold">My astro site</h1>
+  <span>Color setted from frontmatter</span>
+  <section>
+    <h2 class="heading__h2">Random animals</h2>
+    <ul>
+      {
+        animals.map((animal) => (
+          <li data-animal={animal}>{animal}</li>
+        ))
       }
-      .heading__h2 {
-        color: purple;
-      }
-    </style>
-  </head>
-  <body>
-    <Navigation />
-    <h1>My astro site</h1>
-    <span>Color setted from frontmatter</span>
-    <section>
-      <h2 class="heading__h2">Random animals</h2>
-      <ul>
-        {
-          animals.map((animal) => (
-            <li data-animal={animal}>{animal}</li>
-          ))
-        }
-      </ul>
-    </section>
-  </body>
-</html>
+    </ul>
+  </section>
+</BaseLayout>
