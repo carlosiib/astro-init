@@ -1,41 +1,15 @@
 ---
-import { type HTMLAttributes } from "astro/types";
-
-const {
-  main_img = "https://placehold.jp/3d4070/ffffff/150x150.png",
-  main_alt = "Custom Image",
-  tag,
-  title,
-  description,
-  author_img = "https://placehold.jp/3d4070/ffffff/50x50.png",
-  author_name,
-  time,
-} = Astro.props;
+import Button from "./Button";
+const { tier, price, description } = Astro.props;
 ---
 
 <article
-  class="border shadow-gray-300 rounded-sm grid gap-2 w-fit"
+  class="border shadow-gray-300 rounded-sm w-fit text-center py-2"
 >
-  <img src={main_img} alt={main_alt} loading="lazy" />
-  <div class="px-2">
-    <p
-      class="rounded-[500px] bg-slate-300 uppercase w-fit p-2 px-4"
-    >
-      {tag}
-    </p>
-    <h2 class="font-bold">{title}</h2>
+  <div class="px-2 grid gap-2">
+    <h2 class="text-lg font-medium">{tier}</h2>
+    <p class="">{price}</p>
+    <Button client:idle tier={tier} />
     <p>{description}</p>
-  </div>
-  <div class="flex gap-2 px-2">
-    <img
-      src={author_img}
-      alt="Author profile"
-      loading="lazy"
-      class="rounded-full"
-    />
-    <div>
-      <p>{author_name}</p>
-      <p>{time}</p>
-    </div>
   </div>
 </article>
