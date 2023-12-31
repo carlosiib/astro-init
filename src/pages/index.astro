@@ -3,12 +3,15 @@ import "../styles/global.css";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import Card from "../components/Card.astro";
+import Count from "../components/Count";
 ---
 
 <BaseLayout pageTitle="Home">
   <Navigation />
   <h1 class="font-bold">My astro site</h1>
   <section>
+    <!-- <div style="height:2400px; border:1px solid red"></div> -->
+    <Count client:idle />
     <Card
       tag="random"
       title="Hello"
