@@ -4,6 +4,9 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import Card from "../components/Card.astro";
 import Count from "../components/Count";
+import { getCollection } from "astro:content";
+
+const newsLetter = await getCollection("newsletter");
 
 const data = [
   {
@@ -29,6 +32,14 @@ const data = [
   <h1 class="font-bold">My astro site</h1>
   <section>
     <!-- <div style="height:2400px; border:1px solid red"></div> -->
+    <p>Content collection</p>
+    <ul>
+      {
+        newsLetter.map((letter) => (
+          <li>{letter.data.title}</li>
+        ))
+      }
+    </ul>
     <Count client:idle />
     {
       data.map((card) => (
