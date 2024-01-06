@@ -13,6 +13,17 @@ const newsletter = defineCollection({
   }),
 });
 
+const posts = defineCollection({
+  type: "content",
+  schema: z.object({
+    title: z.string().trim(),
+    tags: z.array(z.string()),
+    author: z.string().trim().default("Anonymous"),
+    isDraft: z.boolean(),
+  }),
+});
+
 export const collection = {
   newsletter,
+  posts,
 };
