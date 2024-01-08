@@ -8,6 +8,7 @@ import { getCollection } from "astro:content";
 
 const newsLetter = await getCollection("newsletter");
 const posts = await getCollection("posts");
+console.log(posts);
 
 const data = [
   {
@@ -37,7 +38,9 @@ const data = [
     <ul>
       {
         newsLetter.map((letter) => (
-          <li>{letter.data.title}</li>
+          <li>
+            {letter.data.title} - {letter.data.role}
+          </li>
         ))
       }
     </ul>
@@ -52,6 +55,15 @@ const data = [
             <p>{post.body}</p>
           </div>
         </details>
+      ))
+    }
+    <p>Relation between posts and newsletter</p>
+    {
+      posts.map((post) => (
+        <>
+          <p>Reference to: {post.data.ref}</p>
+          <p>{post.body}</p>
+        </>
       ))
     }
 

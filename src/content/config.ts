@@ -1,10 +1,14 @@
-import { defineCollection, z } from "astro:content";
+import {
+  defineCollection,
+  reference,
+  z,
+} from "astro:content";
 
 const newsletter = defineCollection({
   type: "data",
   schema: z.object({
     title: z.string().trim(),
-    role: z.enum(["Admin", "User"]),
+    role: reference("role"),
     section: z.enum([
       "Marketing",
       "Finance",
@@ -20,10 +24,19 @@ const posts = defineCollection({
     tags: z.array(z.string()),
     author: z.string().trim().default("Anonymous"),
     isDraft: z.boolean(),
+    ref: reference("newsletter"),
+  }),
+});
+
+const role = defineCollection({
+  type: "data",
+  schema: z.object({
+    role: z.enum(["admin", "user"]),
   }),
 });
 
 export const collection = {
   newsletter,
   posts,
+  role,
 };
