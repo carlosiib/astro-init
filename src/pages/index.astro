@@ -4,11 +4,21 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Navigation from "../components/Navigation.astro";
 import Card from "../components/Card.astro";
 import Count from "../components/Count";
-import { getCollection } from "astro:content";
+import {
+  getCollection,
+  getEntry,
+  type CollectionEntry,
+} from "astro:content";
 
 const newsLetter = await getCollection("newsletter");
 const posts = await getCollection("posts");
 console.log(posts);
+
+const post1: CollectionEntry<"posts"> = await getEntry(
+  "posts",
+  "p-1"
+);
+const { Content } = await post1.render();
 
 const data = [
   {
@@ -34,6 +44,8 @@ const data = [
   <h1 class="font-bold">My astro site</h1>
   <section>
     <!-- <div style="height:2400px; border:1px solid red"></div> -->
+    <p>Single entry with semantic MD</p>
+    <Content />
     <p>Content collection - data type</p>
     <ul>
       {
