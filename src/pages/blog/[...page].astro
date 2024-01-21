@@ -1,0 +1,70 @@
+---
+import type { GetStaticPaths } from "astro";
+import Navigation from "../../components/Navigation.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getCollection("posts");
+  return paginate(posts, { pageSize: 2 });
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const title = `Blog Page ${page.currentPage}`;
+// TODO: fix 404 posts pages, 34-35 CP
+---
+
+<BaseLayout pageTitle={title}>
+  <Navigation />
+  <div class="container mx-auto pt-2">
+    <div
+      class="flex justify-between algin-center flex-wrap pb-4"
+    >
+      <h1 class="font-bold">Blogs paginated with SSG.</h1>
+      <p>
+        Total Blogs: <span class="font-bold"
+          >{page.total}</span
+        >
+      </p>
+    </div>
+    <main>
+      <ul>
+        {
+          page.data.map((page) => {
+            return (
+              <li class="list-inside list-disc marker:text-black">
+                <a href={`/posts/${page.slug}`}>
+                  {page.data.title} - Author:{" "}
+                  {page.data.author}
+                </a>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </main>
+    <div class="flex flex-column gap-4 pt-2 items-center">
+      {
+        page.url.prev && (
+          <a
+            href={page.url.prev}
+            class="bg-slate-200 px-4 py-2 rounded"
+          >
+            Previous
+          </a>
+        )
+      }
+      <span>Page: {page.currentPage}</span>
+      {
+        page.url.next && (
+          <a
+            href={page.url.next}
+            class="bg-slate-200 px-4 py-2 rounded"
+          >
+            Next
+          </a>
+        )
+      }
+    </div>
+  </div>
+</BaseLayout>

@@ -16,7 +16,7 @@ console.log(posts);
 
 const post1: CollectionEntry<"posts"> = await getEntry(
   "posts",
-  "p-1"
+  "post-1"
 );
 const { Content } = await post1.render();
 
@@ -41,53 +41,46 @@ const data = [
 
 <BaseLayout pageTitle="Home">
   <Navigation />
-  <h1 class="font-bold">My astro site</h1>
-  <section>
-    <!-- <div style="height:2400px; border:1px solid red"></div> -->
-    <p>Single entry with semantic MD</p>
-    <Content />
-    <p>Content collection - data type</p>
-    <ul>
+  <div class="container mx-auto">
+    <h1 class="font-bold">Astro intro</h1>
+    <section>
+      <!-- <div style="height:2400px; border:1px solid red"></div> -->
+      <p>Single entry with semantic MD</p>
+      <Content />
+      <p>Content collection - data type</p>
+      <ul>
+        {
+          newsLetter.map((letter) => (
+            <li>
+              {letter.data.title} - {letter.data.role}
+            </li>
+          ))
+        }
+      </ul>
+      <p>Content collection - content type</p>
+
       {
-        newsLetter.map((letter) => (
-          <li>
-            {letter.data.title} - {letter.data.role}
-          </li>
+        posts.map((post) => (
+          <details>
+            <summary>{post.data.title}</summary>
+            <div>
+              <p>Author: {post.data.author}</p>
+              <p>{post.body}</p>
+            </div>
+          </details>
         ))
       }
-    </ul>
-    <p>Content collection - content type</p>
 
-    {
-      posts.map((post) => (
-        <details>
-          <summary>{post.data.title}</summary>
-          <div>
-            <p>Author: {post.data.author}</p>
-            <p>{post.body}</p>
-          </div>
-        </details>
-      ))
-    }
-    <p>Relation between posts and newsletter</p>
-    {
-      posts.map((post) => (
-        <>
-          <p>Reference to: {post.data.ref}</p>
-          <p>{post.body}</p>
-        </>
-      ))
-    }
-
-    <Count client:idle />
-    {
-      data.map((card) => (
-        <Card
-          tier={card.tier}
-          description={card.description}
-          price={card.price}
-        />
-      ))
-    }
-  </section>
+      <Count client:idle />
+      {
+        data.map((card) => (
+          <Card
+            tier={card.tier}
+            description={card.description}
+            price={card.price}
+          />
+        ))
+      }
+    </section>
+  </div>
 </BaseLayout>
